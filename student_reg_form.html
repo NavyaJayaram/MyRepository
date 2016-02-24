@@ -1,0 +1,85 @@
+<html>
+	<title> STUDENT INFORMATION </title>
+	<head>
+<script>
+function add()
+ {
+	
+    	var rows = "";
+	var usn= document.getElementById("usn").value;
+        var name = document.getElementById("name").value;
+	var sem = document.getElementById("sem").value;
+	var yoa = document.getElementById("yoa").value;
+        var branch = document.getElementById("branch").value;
+        var clg = document.getElementById("clg").value;
+ 	 rows += "<td>" + usn + "</td><td>" + name + "</td><td>" + sem + "</td><td>" + yoa + "</td><td>" + branch + "</td><td>" + clg + "</td><td><input type='button' value='delete' onclick='del(this)'></td>";
+        var tbody = document.querySelector("#myTable tbody");
+        var tr = document.createElement("tr");
+	tr.innerHTML = rows;
+        tbody.appendChild(tr)
+        
+ }
+
+function del(r)
+{   
+	var i=r.parentNode.parentNode.rowIndex;
+ 	document.getElementById("myTable").deleteRow(i);		
+}
+
+
+</script>
+</head>
+	<body bgcolor="pink">
+<font size="2" color="blue"/>
+			<h1 align="center"> Student Details</h1>
+		<form id="person">
+		<center> 
+			<table >	
+		<tr>
+			<td> USN </td>
+			<td>  <input type="text" name="usn" id="usn"/> </td>
+		</tr>
+		<tr>
+			<td> Name  </td> 
+			<td> <input type="text" name="name" id="name"/>  </td>
+		</tr>
+		<tr>
+			<td>Sem </td>
+			<td> <input type="text" name="sem" id="sem"/>  </td>		
+		</tr>
+		<tr>
+			<td>YOA </td>
+			<td> <input type="text" name="yoa" id="yoa"/>  </td>		
+		</tr>
+		<tr>
+			<td> Branch  </td>
+			<td> <input type="text" name="branch" id="branch"/>  </td>
+		</tr>
+		<tr>
+			<td>College  </td>
+			<td> <input type="text" name="clg" id="clg"/>  </td>
+		</tr>
+		
+		<tr>
+			<td colspan="3" align="center"> <input type="button" value="Submit" onclick="add()"/>  
+				 <input type="reset" value="Reset"/>  </td>
+		</tr>
+		</table>
+	</center>
+		</form>
+
+			<h1 align="center"> Entered Details </h1>
+		<center>
+
+<table id = "myTable" cellspacing = "0px" cellpadding = "20px" text-align = "center">
+            <thead>
+                <tr><td>USN</td><td>Name</td><td>Sem</td><td>YOA</td><td>Branch</td><td>College</td></tr>
+            </thead>
+	    <tbody></tbody>
+        </table>	
+	</center>
+	</body>
+</html>
+			
+			
+			
