@@ -1,5 +1,3 @@
-
-
 function add()
  {
     	var rows = "";
