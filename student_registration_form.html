@@ -1,0 +1,74 @@
+<html>
+	<title> STUDENT INFORMATION </title>
+	<head>
+
+<!--<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>-->
+<script src="student_registration_form.js"></script>
+
+</head>
+	<body bgcolor="yellow">
+<font size="2" color="blue"/>
+			<h1 align="center">Enter Student Details</h1>
+		<form name="myForm" id="person" onsubmit="validateForm(); return false;" accept-charset="utf-8" >
+		
+		
+		<center> 
+			<table >	
+		<tr>
+			<td> USN </td>
+
+			<td>  <input type="text" name="usn" id="usn" onkeypress="javascript:return isNumber(event)"/> </td>
+
+		</tr>
+		<tr>
+			<td> Name </td>
+
+			<td>  <input type="text" name="stud_name" id="stud_name" onblur="validateName(this)"/> </td>
+
+		</tr>
+<tr>
+			<td> EmailID </td>
+
+			<td>  <input type="text" name="email" id="email" onblur="validateEmail(this)"/> </td>
+
+		</tr>
+		<tr>
+			<td>Sem </td>
+			<td> <input type="text" name="sem" id="sem" onkeypress="javascript:return isNumber(event)"/>  </td>		
+		</tr>
+		<tr>
+			<td>YOA </td>
+			<td> <input type="text" name="yoa" id="yoa" onblur="validateYOA(this)"/>  </td>		
+		</tr>
+		<tr>
+			<td> Branch  </td>
+			<td> <input type="text" name="branch" id="branch"/>  </td>
+		</tr>
+		<tr>
+			<td>College  </td>
+			<td> <input type="text" name="clg" id="clg"/>  </td>
+		</tr>
+		
+		<tr>
+			<td colspan="3" align="center"> <input type="submit" name="submit" value="Submit"/>  
+				 <input type="reset" value="Reset"/>  </td>
+		</tr>
+		</table>
+	</center>
+		</form>
+
+
+			<h1 align="center"> Entered Details </h1>
+		<center>
+		<table id = "myTable" cellspacing = "0px" cellpadding = "20px" text-align = "center">
+            		<thead>
+                		<tr><td>USN</td><td>Name</td><td>EmailID</td><td>Sem</td><td>YOA</td><td>Branch</td><td>College</td></tr>
+		        </thead>
+	    		<tbody></tbody>
+     		</table>	
+		</center>
+	</body>
+</html>
+			
+			
+			
