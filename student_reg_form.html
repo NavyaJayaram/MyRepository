@@ -2,54 +2,127 @@
 	<title> STUDENT INFORMATION </title>
 	<head>
 <script>
+
 function add()
  {
-	
     	var rows = "";
 	var usn= document.getElementById("usn").value;
-        var name = document.getElementById("name").value;
+        var stud_name = document.getElementById("stud_name").value;
 	var sem = document.getElementById("sem").value;
+	var email = document.getElementById("email").value;
 	var yoa = document.getElementById("yoa").value;
         var branch = document.getElementById("branch").value;
         var clg = document.getElementById("clg").value;
- 	 rows += "<td>" + usn + "</td><td>" + name + "</td><td>" + sem + "</td><td>" + yoa + "</td><td>" + branch + "</td><td>" + clg + "</td><td><input type='button' value='delete' onclick='del(this)'></td>";
-        var tbody = document.querySelector("#myTable tbody");
+	rows += "<td>" + usn + "</td><td>" + stud_name + "</td><td>" + email +"</td><td>" + sem + "</td><td>" + yoa + "</td><td>" + branch + "</td><td>" + clg + "</td><td><input type='button' value='delete' onclick='del(this)'></td>";
+	var tbody = document.querySelector("#myTable tbody");
         var tr = document.createElement("tr");
 	tr.innerHTML = rows;
-        tbody.appendChild(tr)
-        
+        tbody.appendChild(tr);
+	console.log("adding row to dom");
  }
+function isNumber(evt) {
+        var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+	{
+	    alert("Enter only digits");
+            return false;
+	}
+        return true;
+    } 
+function validateYOA(yoa)
+{
+   
+    var pattern =/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+   
+if (pattern.test(yoa.value) == false)
+{
+       alert('Invalid Date of birth, format should be DD/MM/YYYY');
+        return false;
+    }
+    
+        return true;
+    
+}
+function validateName(stud_name)
+ {
+	  var alphaExp = /^[a-zA-Z]+$/;
+            if(alphaExp.test(stud_name.value) == false)
+            {
+               alert("Please enter only alphabets");
+		return false;
+            }
+           return true;
+}
 
+
+ function validateEmail(email){
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+        if (reg.test(email.value) == false) 
+        {
+            alert('Invalid Email Address');
+            return false;
+        }
+
+        return true;
+
+}
 function del(r)
 {   
 	var i=r.parentNode.parentNode.rowIndex;
  	document.getElementById("myTable").deleteRow(i);		
+	console.log("deleting row from dom");
 }
 
+function validateForm() 
+{
+	console.log(stud_name.value);
+  if ((usn.value === "") || (stud_name.value === "") ||(email.value === "")|| (sem.value === "") || (yoa.value === "") || (branch.value === "") || (clg.value === ""))
+	{
+	   window.alert("Please fill all the fields");    
+	}
+	else
+	{
+		console.log("calling add..");
+		add();
+	}
+}
 
 </script>
 </head>
-	<body bgcolor="pink">
+	<body bgcolor="yellow">
 <font size="2" color="blue"/>
-			<h1 align="center"> Student Details</h1>
-		<form id="person">
+			<h1 align="center">Enter Student Details</h1>
+		<form name="myForm" id="person" onsubmit="validateForm(); return false;" accept-charset="utf-8" >
+		
+		
 		<center> 
 			<table >	
 		<tr>
 			<td> USN </td>
-			<td>  <input type="text" name="usn" id="usn"/> </td>
+
+			<td>  <input type="text" name="usn" id="usn" onkeypress="javascript:return isNumber(event)"/> </td>
+
 		</tr>
 		<tr>
-			<td> Name  </td> 
-			<td> <input type="text" name="name" id="name"/>  </td>
+			<td> Name </td>
+
+			<td>  <input type="text" name="stud_name" id="stud_name" onblur="validateName(this)"/> </td>
+
+		</tr>
+<tr>
+			<td> EmailID </td>
+
+			<td>  <input type="text" name="email" id="email" onblur="validateEmail(this)"/> </td>
+
 		</tr>
 		<tr>
 			<td>Sem </td>
-			<td> <input type="text" name="sem" id="sem"/>  </td>		
+			<td> <input type="text" name="sem" id="sem" onkeypress="javascript:return isNumber(event)"/>  </td>		
 		</tr>
 		<tr>
 			<td>YOA </td>
-			<td> <input type="text" name="yoa" id="yoa"/>  </td>		
+			<td> <input type="text" name="yoa" id="yoa" onblur="validateYOA(this)"/>  </td>		
 		</tr>
 		<tr>
 			<td> Branch  </td>
@@ -61,23 +134,23 @@ function del(r)
 		</tr>
 		
 		<tr>
-			<td colspan="3" align="center"> <input type="button" value="Submit" onclick="add()"/>  
+			<td colspan="3" align="center"> <input type="submit" name="submit" value="Submit"/>  
 				 <input type="reset" value="Reset"/>  </td>
 		</tr>
 		</table>
 	</center>
 		</form>
 
+
 			<h1 align="center"> Entered Details </h1>
 		<center>
-
-<table id = "myTable" cellspacing = "0px" cellpadding = "20px" text-align = "center">
-            <thead>
-                <tr><td>USN</td><td>Name</td><td>Sem</td><td>YOA</td><td>Branch</td><td>College</td></tr>
-            </thead>
-	    <tbody></tbody>
-        </table>	
-	</center>
+		<table id = "myTable" cellspacing = "0px" cellpadding = "20px" text-align = "center">
+            		<thead>
+                		<tr><td>USN</td><td>Name</td><td>EmailID</td><td>Sem</td><td>YOA</td><td>Branch</td><td>College</td></tr>
+		        </thead>
+	    		<tbody></tbody>
+     		</table>	
+		</center>
 	</body>
 </html>
 			
