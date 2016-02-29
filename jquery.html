@@ -1,0 +1,260 @@
+<html>
+      <title> STUDENT INFORMATION </title>
+      <head>
+	<script  src="jqry.js"></script>
+	<script type="text/javascript">
+
+	$(document).ready(function() 
+	{
+		window.regForm=window.regForm || {};
+
+		//jquery code to add student details
+		regForm.add=(function() 
+		{
+			$("#sub").click(function(){
+			if (validation()) // Calling validation function
+			{
+				$("#person").submit(); //form submission
+				alert(" Form Submitted Successfully......");
+			}
+			});
+		});
+		regForm.add();
+
+		//jquery code to reset the fields
+		regForm.reset=(function() 
+		{
+			$("#re").click(function(){
+			$('#person').trigger("reset");
+			});
+		});
+		regForm.reset();
+
+		//Jquery code to Delete the student data after adding the student data
+		regForm.deletion=(function() 
+		{
+			$(".det").click(function(event) { 
+			//console.log(event.currentTarget.closest('tr'));
+			event.currentTarget.closest('tr').remove();
+			alert("deleted");
+			});			
+		});
+
+		//loading images to the form
+		$("img").load(function(){
+                });
+
+		//validating student usn so that it should take only numeric values
+		regForm.validusn=(function() {
+		$("#usn").keypress(function(event)
+		{
+			var iKeyCode = (event.which) ? event.which : event.keyCode
+		        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+		            return false;
+			return true;
+		});
+		});
+		regForm.validusn();
+
+		//validating student name so that it should take only characters
+		regForm.validname=(function() {
+		$("#stud_name").keypress(function(event)
+		{
+	     		var k;
+       		        document.all ? k = event.keyCode : k = event.which;
+			return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8);
+		});
+		});
+		regForm.validname();
+
+		//validating semester only to take integers
+		regForm.validsem=(function() {
+		$("#sem").keypress(function(event)
+		{
+			var iKeyCode = (event.which) ? event.which : event.keyCode
+		        if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+		            return false;
+		        return true;
+		});
+		});
+		regForm.validsem();
+
+		//validating email address 
+		regForm.validemail()=(function() {
+		$("#email").keypress(function(event)
+		{
+			var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		        if (reg.test(email.value) == false) 
+		        {
+		            alert('Invalid Email Address');
+		            return false;
+        		}
+		        return true;
+		});
+		});
+		regForm.validemail();
+
+		//validating year of admission
+		regForm.validyoa=(function() {
+		$("#yoa").keypress(function(event)
+		{
+			var year = $("#yoa").val();
+			var text = /^[0-9]+$/;
+  			if(event.type=="blur" || year.length==4 && event.keyCode!=8 && event.keyCode!=46) 
+			{
+			     if (year != 0) 
+			    {
+			        if ((year != "") && (!text.test(year))) 
+				{
+			            alert("Please Enter Numeric Values Only");
+			            return false;
+			        }
+			        if (year.length != 4) 
+				{
+			            alert("Enter the valid year");
+			            return false;
+			        }
+			        var current_year=new Date().getFullYear();
+			        if((year < 1920) || (year > current_year))
+		                {
+			            alert("Year should be in range 1920 to current year");
+			            return false;
+            			}
+			        return true;
+	   		    } 
+			}
+	        });
+		});
+		regForm.validyoa();
+
+		//validating branch name to take only characters
+		regForm.validbranch=(function() {
+		$("#branch").keypress(function(event)
+		{
+		     var k;
+		     document.all ? k = event.keyCode : k = event.which;
+		     return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8);
+		});
+		});
+		regForm.validbranch();
+
+		//validating college name to take only characters
+		regForm.validclg=(function() {
+		$("#clg").keypress(function(event)
+		{
+		     var k;
+		     document.all ? k = event.keyCode : k = event.which;
+		     return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8);
+		});
+		});
+		regForm.clg();
+
+		// Validating form fields empty or not
+		function validation()
+		{
+			var usn = $("#usn").val();
+			var stud_name = $("#stud_name").val();
+			var email=$("#email").val();
+			var sem = $("#sem").val();
+			var yoa = $("#yoa").val();
+			var branch = $("#branch").val();
+			var clg = $("#clg").val();
+			if(  usn==='' || stud_name ===''|| email ===''  ||sem ==='' ||yoa==='' || branch==='' || clg==='' )
+			{
+				alert("Please fill all fields");
+				return false;
+			}
+			else
+				return added();
+
+		}
+
+
+		//Jquery code to add student data and display on the same web page
+		function added() 
+		{
+			var rows = "";
+        		var usn = $("#usn").val();
+			var stud_name = $("#stud_name").val();
+			var email = $("#email").val();
+			var sem = $("#sem").val();
+			var yoa = $("#yoa").val();
+			var branch = $("#branch").val();
+			var clg = $("#clg").val();
+	        	rows += "<td>" + usn + "</td><td>" + stud_name + "</td><td>"+ email + "</td><td>" + sem + "</td><td>"+ yoa + "</td><td>" + branch + "</td><td>" + clg + "</td><td>" + "<input type='button' class='det' value='Delete' id='del'  />" + "</td>";
+		        var tbody = document.querySelector("#list");
+		        var tr = document.createElement("tr");
+		        tr.innerHTML = rows;
+		        tbody.appendChild(tr);
+			regForm.deletion();
+    		}
+
+	});
+      </script>
+      <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+    </head>
+	
+    <body bgcolor="yellow">
+	<img src="rvce.png" alt="rvce_logo" width="150" height="150" align="left">
+	<img src="janastu.gif" alt="janastu_organization" width="150" height="150" align="right">
+	
+	
+	<h1 align="center" color="red">Student Registration Form using Jquery</h1>
+	<!--Accepting the user input-->
+	<font size="2" color="blue"/>
+	<h2 align="center">Enter Student Details</h2>
+	<form id="person" name="registration" class="form_class">
+		<center> 
+		<table >	
+			<tr>
+				<td> USN </td>
+				<td>  <input type="text" name="usn" id="usn" /> </td>
+			</tr>
+			<tr>
+				<td> Name </td>
+				<td>  <input type="text" name="stud_name" id="stud_name" /> </td>
+			</tr>
+			<tr>
+				<td> EmailID </td>
+				<td>  <input type="text" name="email" id="email" /> </td>
+			</tr>
+			<tr>
+				<td>Sem </td>
+				<td> <input type="text" name="sem" id="sem"/>  </td>		
+			</tr>
+			<tr>
+				<td>YOA </td>
+				<td> <input type="text" name="yoa" id="yoa" />  </td>		
+			</tr>
+			<tr>
+				<td> Branch  </td>
+				<td> <input type="text" name="branch" id="branch"/>  </td>
+			</tr>
+			<tr>
+				<td>College  </td>
+				<td> <input type="text" name="clg" id="clg"/>  </td>
+			</tr>
+			<tr>
+				<td colspan="3" align="center"> <input type="button" name="submit" value="Submit" id="sub"/>  
+				 <input type="reset" value="Reset" id="re"/>  </td>
+			</tr>
+		</table>
+		</center>
+	</form>
+	
+	<!--Displaying the details in a table format-->
+	<br/>
+	<h2 align="center"> Entered Details </h2>
+	<center>
+	<table id = "list" cellspacing = "0px" cellpadding = "20px" text-align = "center">
+          	<thead>
+               		<tr><td>USN</td><td>Name</td><td>EmailID</td><td>Sem</td><td>YOA</td><td>Branch</td><td>College</td></tr>
+	        </thead>
+    		<tbody></tbody>
+    	</table>	
+	</center>
+     </body>
+</html>
+			
+			
+			
