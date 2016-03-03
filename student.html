@@ -1,0 +1,61 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-messages.min.js"></script>
+    <script src="student.js"></script>
+</head>
+<body ng-app="app">
+<center>
+<h1>Student registration form using AngularJS localStorage</h1>
+<div ng-controller="ContactController">
+    <form>
+	<label>USN</label> 
+        <input type="text" name="usn" ng-model="newcontact.usn"/><br/>
+    <label>Name</label> 
+        <input type="text" name="name" ng-model="newcontact.name"/><br/>
+    <label>Email</label> 
+        <input type="text" name="email" ng-model="newcontact.email"/><br/>
+	<label>Sem</label> 
+        <input type="text" name="name" ng-model="newcontact.sem"/><br/>
+    <label>Branch</label> 
+        <input type="text" name="branch" ng-model="newcontact.branch"/><br/>
+<label>College</label> 
+        <input type="text" name="clg" ng-model="newcontact.clg"/><br/>
+        <br/>
+        <input type="hidden" ng-model="newcontact.id" />
+     <input type="button" value="Submit" ng-click="saveContact()" />
+    </form>
+
+<center>
+<table cellspacing = "0px" cellpadding = "20px" text-align = "center">
+
+<thead> 
+<tr>
+	 <th>USN</th>
+    <th>Name</th>
+    <th>Email</th>
+ <th>Sem</th>
+    <th>Branch</th>
+ <th>College</th>
+    <th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="contact in contacts">
+	<td>{{ contact.usn }}</td>
+    <td>{{ contact.name }}</td>
+    <td>{{ contact.email }}</td>
+<td>{{ contact.sem }}</td>
+    <td>{{ contact.branch }}</td>
+<td>{{ contact.clg }}</td>
+    <td>
+        <a href="#" ng-click="edit(contact.id)">Edit</a> | 
+        <a href="#" ng-click="delete(contact.id)">Delete</a>
+    </td>
+ </tr>
+</tbody>
+</table>    
+</div>
+</center>
+</body>
+</html>
