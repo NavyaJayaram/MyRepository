@@ -1,0 +1,204 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml">  
+	<head runat="server">  
+		<title></title>  
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-messages.min.js"></script>
+		<script type="text/javascript" src="Scripts/Angular.min.js"></script>  
+		<script type="text/javascript">  
+	        
+		var isHtml5Compatible = document.createElement('canvas').getContext != undefined;  
+                if (isHtml5Compatible) {  
+       			initiateLocalStorage();  
+      		}  
+      
+      	        function initiateLocalStorage() {  
+        	        // Create the AngularJS app   
+        	        var app = angular.module('Students', ['storageService']);  
+      			var op="A";
+        	        // Create the Controller  
+        	        app.controller('StudentsController', ['$scope', 'getLocalStorage', function ($scope, getLocalStorage) {  
+        	    		$scope.appTitle = "LocalStorage Demo";  
+   	             	    	$scope.appHeadline = "AngularJS and HTML5";  
+      
+	                	//Read the student List from LocalStorage  
+                    		$scope.students = getLocalStorage.getStudents();  
+      
+                 		//Count the  student List  
+	                	$scope.count = $scope.students.length;  
+			
+				$scope.Submit = function () {
+					if(op=="A")
+						$scope.addStudent();
+					else
+						$scope.editStudent(student);
+	
+				};
+      
+      				//Add  student - using AngularJS push to add  student in the  student Object  
+      	                	//Call Update  student to update the locally stored  student List  
+                        	//Reset the AngularJS  student scope  
+                        	//Update the Count  
+                        	$scope.addStudent = function () { 
+		        		var uid=1;
+                        		$scope.students.push({ 
+						'usn': $scope.usn, 
+						'uname': $scope.uname,
+						'mail':$scope.mail,
+						'sem':$scope.sem, 
+						'yoj': $scope.yoj,
+						'branch':$scope.branch,
+						'college':$scope.college, 
+					});  
+		                        $scope.usn = ''; 
+			                $scope.uname = ''; 
+					$scope.mail=''; 
+					$scope.sem='';
+        	                	$scope.yoj = ''; 
+					$scope.branch = ''; 
+					$scope.college = '';  
+		                        $scope.count = $scope.students.length;  
+        	            	};  
+      
+        	            	//Delete  student - Using AngularJS splice to remove the emp row from the  student list  
+        	          	//All the Update  student to update the locally stored  student List  
+        	            	//Update the Count  
+        	            	$scope.deleteStudent = function (stud) {  
+        		            	$scope.students.splice($scope.students.indexOf(stud), 1);   
+			                $scope.count = $scope.students.length;  
+        			};
+  
+			 	$scope.editStudent = function (stud) {
+					op="E";  
+			                $scope.usn = stud.usn; 
+					$scope.uname = stud.uname; 
+					$scope.mail=stud.mail; 
+					$scope.sem=stud.sem;
+        	                	$scope.yoj = stud.yoj; 
+					$scope.branch = stud.branch; 
+					$scope.college = stud.college;
+					
+					//$scope.students.indexOf(students)=$scope.students.indexOf(stud);
+					$scope.deleteStudent(stud);  
+        	        		getLocalStorage.updateStudents($scope.students);  
+        	        	        $scope.count = $scope.students.length; 
+					op="A"; 
+        	        	}; 
+			}]);  
+      
+        	        //Create the Storage Service Module  
+        	        //Create getLocalStorage service to access Update student and get student method  
+        	        var storageService = angular.module('storageService', []);  
+        	        storageService.factory('getLocalStorage', function () {  
+        	      		var studentList = {};  
+        	        	return {  
+        	        		list: studentList,  
+        	        	        updateStudents: function (StudentsArr) {  
+        	        	        	if (window.localStorage && StudentsArr) {  
+        	                        		//Local Storage to add Data  
+							
+        	                        		localStorage.setItem("students", angular.toJson(StudentsArr));  
+        	                    		}  
+        	                    		studentList = StudentsArr;  
+						//alert("hello");
+		                        },  
+        	                	getStudents: function () {  
+        	                		//Get data from Local Storage 
+						 
+        	                		studentList = angular.fromJson(localStorage.getItem("students"));  
+		                    	        return studentList ? studentList : [];  
+                       			}  
+				};  
+			});  
+		}  
+	        
+		</script>  
+
+	</head>  
+	<body ng-app="Students">
+		<center>  
+      		<h1> Student Registration form in AngularJS using local storage</h1>
+        	<div ng-controller="StudentsController">  
+      
+        	<!--    <h1 class="app-title">{{ appTitle }}</h1>  
+        	    <h1 class="app-headline">{{ appHeadline }}</h1> -->
+      	
+        	 <form name="frm">  
+                	USN   :  
+      
+                         
+                            <input type="text" name="usn" ng-model="usn" required><br />  
+                       Name   :  
+      
+                            <input type="text" name="uname" ng-model="uname" required><br />  
+                       
+                         Email  :  
+      
+                         
+                            <input type="email" name="mail" ng-model="mail" required><br />  
+                         Sem  :  
+      
+                         
+                            <input type="text" name="sem" ng-model="sem" required>  
+                        <br />
+                        yoj   :  
+      
+                         
+                            <input type="text" name="yoj" ng-model="yoj" required> <br /> 
+                        
+                        Branch   :  
+      
+                         
+                            <input type="text" name="branch" ng-model="branch" required><br />  
+                        
+                        College   :  
+      
+                        
+                            <input type="text" name="college" ng-model="college" required> <br /> 
+                        
+                         
+      
+                            <button ng-click="Submit()" ng-disabled="frm.$invalid">SUBMIT</button>  
+                       
+            </form> 
+
+<br /> <br /> <br />  
+            <table cellpadding="4" cellspacing="4" border="1" style="border-collapse: collapse; border: solid 1px #000">  
+                <tr>  
+                    <td><b>USN</b></td>  
+                    <td><b>Name</b></td>
+		    <td><b>Email</b></td>  
+		    <td><b>Sem</b></td>
+                    <td><b>yoj</b></td> 
+		    <td><b>branch</b></td>  
+		    <td><b>College</b></td> 
+                    <td><b>Action</b></td>  
+                </tr>  
+                <tr ng-repeat="student in students">  
+                    <td>{{ student.usn }}  
+                    </td>  
+                    <td>{{ student.uname }}  
+                    </td> 
+		<td>{{ student.mail}}  
+                    </td>  
+			<td>{{ student.sem}}  
+                    </td> 
+                    <td>{{ student.yoj }}  
+                    </td> 
+			<td>{{ student.branch }}  
+                    </td> 
+			<td>{{ student.college }}  
+                    </td>  
+                    <td>  
+                        <button ng-click="deleteStudent(student)">Delete</button>  
+			<button ng-click="editStudent(student)">Edit</button>  
+      
+                    </td>  
+                </tr>  
+      
+            </table>  
+            <div>Total students : {{count}}</div>  
+             </div>  
+      </center>
+    </body>  
+    </html>   
