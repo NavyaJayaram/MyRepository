@@ -1,0 +1,18 @@
+//sounder.service('$http',function(){
+
+//});
+
+
+var app = angular.module('sounds');
+
+app.service('soundService', function($http) {
+
+  this.getArtist = function(artist) {
+    return $http({
+      method: 'GET',
+      url: 'https://api.soundcloud.com/'
+    })
+  };
+
+})
+

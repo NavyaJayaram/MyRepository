@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="sounds">
+<head>
+  <title>Sounds</title>
+ <!-- <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="http://bootswatch.com/cosmo/bootstrap.min.css">-->
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+<script>
+  SC.initialize({
+    client_id: 'e612801dd1e2dca42b6fcf01ba971cf3',
+    //redirect_uri: 'http://example.com/callback'
+  });
+  SC.get('/user/pnj1993/tracks').then(function(tracks){
+  alert('Latest track: ' + tracks[0].title);
+});
+</script>
+</head>
+<body ng-controller="MainController">
+<form><center>
+<input type='text' placeholder="SoundCloud username" ng-model="searchArtist" class="form-control text-center"><br/>
+<button type='submit' ng-click="getArtist()">Search Tracks</button></center>
+
+</form>
+
+<div ng-bind-html="iFrame">
+
+</div>
+<div class="row">
+  <div ng-repeat="song in artist">
+    <div class="col-md-1">
+      <img src="" ng-if="!song.artwork_url">	
+      <img src="{{song.artwork_url}}" ng-click="play(song.permalink_url)" ng-if="song.artwork_url">
+    </div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+<script src="http://connect.soundcloud.com/sdk.js"></script>
+<script src="app.js"></script>
+<script src="mainController.js"></script>
+<script src="soundService.js"></script>
+
+</body>
+</html>

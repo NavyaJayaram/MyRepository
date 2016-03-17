@@ -1,0 +1,3 @@
+sounder.module('soundService', []).controller('mainController', function ($scope, $http,soundService) {
+alert("main controller");
+});

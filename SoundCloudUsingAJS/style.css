@@ -1,0 +1,5 @@
+img {
+  min-height: 100px;
+  max-width: 100px;
+  cursor: pointer;
+}

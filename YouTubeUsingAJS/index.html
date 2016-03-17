@@ -1,0 +1,47 @@
+<!doctype html>
+<html data-ng-app="ytapp">
+  <head>
+    <meta charset="utf-8"> 
+    <title>Youtube video </title>
+    <meta name="author" content="J. Thomas">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+   <!-- <link rel="stylesheet" href="style.css" type="text/css">-->
+    <link rel="icon" href="/favicon.ico">
+  </head>
+  <body data-ng-controller="VideosController">
+    <header>
+      <h1>Youtube<strong>video</strong></h1>
+      <form id="search" data-ng-submit="search(event)">
+        <input id="query" name="q" type="text" placeholder="Search for a YouTube video" data-ng-model="query">
+        <!--<input id="submit" type="image" src="search.png" alt="Search">-->
+	 <input type="submit" value="Search">
+      </form>
+     
+    </header>
+    <div id="results">
+      <div class="video" data-ng-repeat="video in results" data-ng-click="queue(video.id, video.title)">
+       <img class="video-image" data-ng-src="{{ video.thumbnail }}">
+       <video autoplay="autoplay" preload="auto" ng-click="video(event)">
+    <source src="{{ current.url }}" type="video/mp4" />
+</video>
+      </div>
+    </div>
+    <div id="player">
+      <div id="placeholder"></div>
+    </div>
+    <div id="playlist">
+  
+      <ol id="history" data-ng-hide="playlist">
+        <li data-ng-repeat="video in history">
+         
+        </li>
+      </ol>
+     
+    </div>
+    
+    <script src="angular.min.js"></script>
+    <script src="angular-local-storage.js"></script>
+    <script src="app1.js"></script>
+  </body>
+</html>

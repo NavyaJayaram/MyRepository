@@ -1,0 +1,2 @@
+var sounder = angular.module('sounder', []);
+

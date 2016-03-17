@@ -1,0 +1,8 @@
+pnj@pnj-Inspiron-3537:~/Desktop/soundcloudAPI_Ajs$ virtualenv .
+New python executable in ./bin/python
+Installing setuptools, pip...done.
+pnj@pnj-Inspiron-3537:~/Desktop/soundcloudAPI_Ajs$ source bin/activate
+
+(soundcloudAPI_Ajs)pnj@pnj-Inspiron-3537:~/Desktop/soundcloudAPI_Ajs$ python -m SimpleHTTPServer 8000
+Serving HTTP on 0.0.0.0 port 8000 ...
+
